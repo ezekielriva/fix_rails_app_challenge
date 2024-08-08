@@ -10,12 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2016_03_24_044920) do
+ActiveRecord::Schema.define(version: 2024_08_09_090046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "products", id: :serial, force: :cascade do |t|
+  create_table "orders", force: :cascade do |t|
+    t.bigint "product_id"
+    t.string "customer_name"
+    t.string "adress"
+    t.string "zip_code"
+    t.string "shipping_method"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status"
+    t.string "fedex_id"
+    t.index ["product_id"], name: "index_orders_on_product_id"
+  end
+
+  create_table "products", force: :cascade do |t|
     t.string "name"
     t.decimal "price", precision: 8, scale: 2
     t.integer "stock"
@@ -23,4 +36,17 @@ ActiveRecord::Schema.define(version: 2016_03_24_044920) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "orders", "products"
 end

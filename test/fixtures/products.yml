@@ -1,0 +1,9 @@
+one:
+  name: product_1
+  price: 10.20
+  stock: 10
+
+two:
+  name: product_2
+  price: 9.05
+  stock: 2
