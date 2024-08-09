@@ -1,0 +1,22 @@
+<%= form_with(action: :index, controller: :orders, method: :get, scope: :filters, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :customer_name, "Customer Name Contains" %>
+    <%= form.text_field :customer_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :product_id, "Product Equal" %>
+    <%= form.collection_select :product_id, products, :id, :name, prompt: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status, "Status equal" %>
+    <%= form.collection_select :status, Order.statuses, :first, :first, prompt: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Filter" %>
+    <%= link_to "Reset Filters", orders_url %>
+  </div>
+
+<% end %>
